@@ -27,23 +27,23 @@ def convertPIs(aString):
 
 
 def graderMain(executablePath, gradingCSV):
-    problems = [["./map1.txt", "pi/2,pi/4,pi/2,0.785398,1.570796",
+    problems = [["maps/map1.txt", "pi/2,pi/4,pi/2,0.785398,1.570796",
                                 "0.392699,2.356194,pi,2.8274328,pi*3/2"],
-            ["./map2.txt", "0.392699,2.356194,3.141592",
+            ["maps/map2.txt", "0.392699,2.356194,3.141592",
                                 "1.570796,0.785398,1.570796"]]
     scores = []
     for aPlanner in [0, 1, 2, 3]:
         for i, data in enumerate(problems):
             inputMap, startPos, goalPos = [*data]
             numDOFs = len(startPos.split(","))
-            outputSolutionFile = "tmp.txt"
+            outputSolutionFile = "output.txt"
             startPosString = ",".join(convertPIs(startPos))
             goalPosString = ",".join(convertPIs(goalPos))
             commandPlan = "{} {} {} {} {} {} {}".format(
                 executablePath,
                 inputMap, numDOFs, startPosString, goalPosString,
                 aPlanner, outputSolutionFile)
-            commandVerify = "./verifier.out {} {} {} {} {}".format(
+            commandVerify = "build/verifier {} {} {} {} {}".format(
                 inputMap, numDOFs, startPosString, goalPosString,
                 outputSolutionFile)
             try:
@@ -71,7 +71,7 @@ def graderMain(executablePath, gradingCSV):
                     scores.append([aPlanner, inputMap, i, numSteps, cost, timespent, success])
             
                 ### Visualize their results
-                commandViz = "python3 visualizer.py tmp.txt --gifFilepath=grades_{}.gif".format(i)
+                commandViz = "python3 scripts/visualize_arm.py output.txt --gifFilepath=grades_{}.gif".format(i)
                 commandViz += " --incPrev=1"
                 subprocess.run(commandViz.split(" "), check=True) # True if want to see failure errors
             except Exception as exc:
@@ -84,4 +84,4 @@ def graderMain(executablePath, gradingCSV):
             
 
 if __name__ == "__main__":
-    graderMain("./planner.out", "test.csv")
+    graderMain("build/planner", "grader_results.csv")

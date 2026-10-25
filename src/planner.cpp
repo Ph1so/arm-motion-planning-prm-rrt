@@ -995,8 +995,8 @@ double calc_cost(double** plan, int numofDOFs, int planlength, double*	map,
  * send the default 6 arguments:
  *    map, numOfDOFs, commaSeparatedStartPos, commaSeparatedGoalPos, 
  *    whichPlanner, outputFilePath
- * An example run after compiling and getting the planner.out executable
- * >> ./planner.out map1.txt 5 1.57,0.78,1.57,0.78,1.57 0.392,2.35,3.14,2.82,4.71 0 output.txt
+ * An example run after compiling and getting the build/planner executable
+ * >> ./build/planner maps/map1.txt 5 1.57,0.78,1.57,0.78,1.57 0.392,2.35,3.14,2.82,4.71 0 output.txt
  * See the hw handout for full information.
  * If you modify this for testing (e.g. to try out different hyper-parameters),
  * make sure it can run with the original 6 commands.

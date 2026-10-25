@@ -1,0 +1,15 @@
+# Compiled binaries
+build/
+*.out
+
+# Files the planner and scripts write into the working folder when run
+/output.txt
+/grader_results.csv
+/grades_*.gif
+/output.gif
+/rrt_connect_graph_*.txt
+/prm_graph_*.txt
+/visual_*.png
+
+__pycache__/
+.DS_Store

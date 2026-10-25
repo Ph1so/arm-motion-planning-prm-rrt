@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Benchmark RRT-Connect and PRM planners on map2.txt.
+Benchmark RRT-Connect and PRM planners on maps/map2.txt.
+Run from anywhere: python3 scripts/benchmark.py
 
 Generates 5 random valid start/goal pairs, runs each 4 times per planner
 (20 total runs per planner).  Reports mean ± std for:
@@ -23,9 +24,9 @@ from pathlib import Path
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-SCRIPT_DIR     = Path(__file__).parent
-PLANNER_BIN    = SCRIPT_DIR / "planner.out"
-MAP_FILE       = str(SCRIPT_DIR / "map2.txt")
+REPO_ROOT      = Path(__file__).resolve().parent.parent
+PLANNER_BIN    = REPO_ROOT / "build" / "planner"
+MAP_FILE       = str(REPO_ROOT / "maps" / "map2.txt")
 NUM_DOFS       = 5
 LINKLENGTH     = 10          # LINKLENGTH_CELLS in C++
 PI             = math.pi
@@ -192,10 +193,11 @@ def print_report(results, planner_name):
 def main():
     # --- Compile if needed ---
     if not PLANNER_BIN.exists():
-        print("Compiling planner.cpp …")
+        print("Compiling src/planner.cpp …")
+        PLANNER_BIN.parent.mkdir(exist_ok=True)
         ret = subprocess.run(
             ["g++", "-O2", "-std=c++17", "-o", str(PLANNER_BIN),
-             str(SCRIPT_DIR / "planner.cpp"), "-lm"],
+             str(REPO_ROOT / "src" / "planner.cpp"), "-lm"],
             capture_output=True, text=True,
         )
         if ret.returncode != 0:

@@ -2,15 +2,15 @@
 Graph Visualizer for Robotic Arm Planning (PRM and RRT-Connect).
 
 Usage:
-    python3 visualize_prm.py <map_file> [graph_file]
+    python3 scripts/visualize_graph.py <map_file> [graph_file]
 
-    map_file   - the obstacle map (e.g. map1.txt)
+    map_file   - the obstacle map (e.g. maps/map1.txt)
     graph_file - the graph/tree file written by the planner.
-                 Defaults to prm_graph_<mapname>.txt if not specified.
+                 Defaults to results/graphs/prm_<mapname>.txt if not specified.
 
 Examples:
-    python3 visualize_prm.py map1.txt                          # PRM
-    python3 visualize_prm.py map1.txt rrt_connect_graph_map1.txt  # RRT-Connect
+    python3 scripts/visualize_graph.py maps/map1.txt                                        # PRM
+    python3 scripts/visualize_graph.py maps/map1.txt results/graphs/rrt_connect_map1.txt  # RRT-Connect
 
 The graph file format (DOFS/NODES/EDGES) is the same for both planners.
 """
@@ -109,7 +109,7 @@ def visualize(map_file: str, graph_file: str = None):
     basename = os.path.basename(map_file)
 
     if graph_file is None:
-        graph_file = f"prm_graph_{basename}"
+        graph_file = os.path.join("results", "graphs", f"prm_{basename}")
 
     if not os.path.exists(graph_file):
         print(f"ERROR: Graph file not found: {graph_file}")
@@ -194,9 +194,9 @@ def visualize(map_file: str, graph_file: str = None):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python3 visualize_prm.py <map_file> [graph_file]")
-        print("  e.g. python3 visualize_prm.py map1.txt")
-        print("  e.g. python3 visualize_prm.py map1.txt rrt_connect_graph_map1.txt")
+        print("Usage: python3 scripts/visualize_graph.py <map_file> [graph_file]")
+        print("  e.g. python3 scripts/visualize_graph.py maps/map1.txt")
+        print("  e.g. python3 scripts/visualize_graph.py maps/map1.txt results/graphs/rrt_connect_map1.txt")
         sys.exit(1)
     graph_arg = sys.argv[2] if len(sys.argv) >= 3 else None
     visualize(sys.argv[1], graph_arg)

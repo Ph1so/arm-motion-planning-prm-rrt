@@ -5,12 +5,12 @@
 ## Compilation
 
 ```bash
-g++ planner.cpp -o planner.out
+make
 ```
 
 Example run:
 ```bash
-./planner.out map2.txt 5 1.57,0.78,1.57,0.78,1.57 0.392,2.35,3.14,2.82,4.71 1 output.txt
+./build/planner maps/map2.txt 5 1.57,0.78,1.57,0.78,1.57 0.392,2.35,3.14,2.82,4.71 1 output.txt
 ```
 ---
 
@@ -51,7 +51,7 @@ All distance computations use **shortest-arc angular differences** (wrapped to [
 
 ## Benchmark Results
 
-**Map:** `map2.txt` (50 × 50)
+**Map:** `maps/map2.txt` (50 × 50)
 **DOFs:** 5
 **Methodology:** 5 randomly generated valid start/goal pairs × 4 runs each = 20 runs per planner
 **Timeout:** 5 seconds per run

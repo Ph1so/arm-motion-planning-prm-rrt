@@ -1,0 +1,8 @@
+<library path="libmoveit_rrt_planner">
+  <class
+    name="moveit_rrt_planner/RRTPlannerManager"
+    type="moveit_rrt_planner::RRTPlannerManager"
+    base_class_type="planning_interface::PlannerManager">
+    <description>Joint-space RRT planner plugin for MoveIt 2</description>
+  </class>
+</library>
